@@ -1,0 +1,32 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0.32
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: ${RDS_PASSWORD}
+    ports:
+      - "3306:${RDS_PORT}"
+    volumes:
+      - db-data:/var/lib/mysql
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      RDS_DB_NAME: ${RDS_DB_NAME}
+      RDS_USERNAME: ${RDS_USERNAME}
+      RDS_PASSWORD: ${RDS_PASSWORD}
+      RDS_HOSTNAME: ${RDS_HOSTNAME}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN}
+      NODE_ENV: development
+    command: "yarn start"
+    volumes:
+      - .:/express-catchup
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  db-data:
