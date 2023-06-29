@@ -1,0 +1,444 @@
+openapi: 3.0.0
+info:
+  title: task-management
+  version: '1.0'
+servers:
+  - url: /v1
+  
+paths:
+  /users:
+    post:
+      tags:
+        - users
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Created
+  /{username}:
+    get:
+      security:
+        - JWTAuth: []
+      tags:
+        - users
+      summary: Get a user by username
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      security:
+        - JWTAuth: []
+      tags:
+        - users
+      summary: Update a user by username
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      security:
+        - JWTAuth: []
+      tags:
+        - users
+      summary: Delete a user by username
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+      responses:
+        '204':
+          description: No Content
+  /{username}/projects:
+    get:
+      security:
+        - JWTAuth: []
+      tags:
+        - projects
+      summary: Get all projects
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+    post:
+      security:
+        - JWTAuth: []
+      tags:
+        - projects
+      summary: Create a new project
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '201':
+          description: Created
+  /{username}/projects/{project_id}:
+    get:
+      security:
+        - JWTAuth: []
+      tags:
+        - projects
+      summary: Get a project by ID
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+        - in: path
+          name: project_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the project
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+    put:
+      security:
+        - JWTAuth: []
+      tags:
+        - projects
+      summary: Update a project by ID
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+        - in: path
+          name: project_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUpdateInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+    delete:
+      security:
+        - JWTAuth: []
+      tags:
+        - projects
+      summary: Delete a project by ID
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+        - in: path
+          name: project_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the project
+      responses:
+        '204':
+          description: No Content
+  /{username}/projects/{project_id}/tasks:
+    get:
+      security:
+        - JWTAuth: []
+      tags:
+        - tasks
+      summary: Get all tasks
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+        - in: path
+          name: project_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the project
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      security:
+        - JWTAuth: []
+      tags:
+        - tasks
+      summary: Create a new task
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+        - in: path
+          name: project_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Created
+  /{username}/projects/{project_id}/tasks/{task_id}:
+    get:
+      security:
+        - JWTAuth: []
+      tags:
+        - tasks
+      summary: Get a task by ID
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+        - in: path
+          name: project_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the project
+        - in: path
+          name: task_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the task
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    put:
+      security:
+        - JWTAuth: []
+      tags:
+        - tasks
+      summary: Update a task by ID
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+        - in: path
+          name: project_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the project
+        - in: path
+          name: task_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdateInput'
+      responses:
+        '200':
+          description: OK
+    delete:
+      security:
+        - JWTAuth: []
+      tags:
+        - tasks
+      summary: Delete a task by ID
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: Username of the user
+        - in: path
+          name: project_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the project
+        - in: path
+          name: task_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the task
+      responses:
+        '204':
+          description: No Content
+          
+components:
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      
+  schemas:
+    User:
+      type: object
+      properties:
+        firebase_id:
+          type: string
+        bio:
+          type: string
+        email:
+          type: string
+        nickname:
+          type: string
+        username:
+          type: string
+    Project:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+    Task:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        project_id:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+        status:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+    UserUpdateInput:
+      type: object
+      properties:
+        bio:
+          type: string
+        email:
+          type: string
+        nickname:
+          type: string
+        username:
+          type: string
+    ProjectUpdateInput:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    TaskUpdateInput:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        status:
+          type: integer
+        start_date:
+          type: string
+        end_date:
+          type: string
