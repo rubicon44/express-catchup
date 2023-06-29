@@ -19,3 +19,5 @@ COPY . $APP_ROOT
 EXPOSE 3000
 
 CMD ["yarn", "start"]
+
+# test
