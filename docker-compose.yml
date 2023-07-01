@@ -23,6 +23,7 @@ services:
     command: "yarn start"
     volumes:
       - .:/express-catchup
+      - node_modules:/express-catchup/node_modules
     ports:
       - "3000:3000"
     depends_on:
@@ -30,3 +31,4 @@ services:
 
 volumes:
   db-data:
+  node_modules:
