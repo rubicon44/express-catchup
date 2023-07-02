@@ -16,7 +16,8 @@ server.use(logger('dev'));
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 server.use(cookieParser());
-server.use(express.static(path.join(__dirname, 'public')));
+// 静的ファイルの提供設定
+server.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 server.use('/', indexRouter);
 

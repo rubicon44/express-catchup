@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www.ts",
+    "start": "nodemon ./src/infrastructure/bin/www.ts",
     "build": "npx tsc",
     "build:watch": "npx tsc -w",
     "dev": "yarn run build:watch & yarn start"
