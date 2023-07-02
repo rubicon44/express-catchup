@@ -9,5 +9,5 @@
       "*": ["./typings/*"]
     }
   },
-  "include": ["./app.ts", "./routes/*.ts"]
+  "include": ["./src/infrastructure/server.ts", "./src/infrastructure/routes/*.ts"]
 }
