@@ -9,3 +9,12 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id Int @id @default(autoincrement())
+  firebase_id String @unique
+  bio String?
+  email String @unique
+  nickname String
+  username String @unique
+}
