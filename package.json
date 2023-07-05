@@ -1,6 +1,9 @@
 {
   "name": "express-catchup",
   "version": "0.1.0",
+  "prisma": {
+    "schema": "./src/infrastructure/prisma/schema.prisma"
+  },
   "private": true,
   "scripts": {
     "start": "nodemon ./src/infrastructure/bin/www.ts",

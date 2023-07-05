@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
 import indexRouter from './routes/index';
+import userRouter from './routes/users';
 
 const server = express();
 
@@ -19,7 +20,9 @@ server.use(cookieParser());
 // 静的ファイルの提供設定
 server.use('/assets', express.static(path.join(__dirname, 'assets')));
 
+// routing
 server.use('/', indexRouter);
+server.use('/users', userRouter);
 
 // catch 404 and forward to error handler
 server.use((req: Request, res: Response, next: NextFunction) => {
