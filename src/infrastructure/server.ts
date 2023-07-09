@@ -1,5 +1,6 @@
 import createError from 'http-errors';
 import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
@@ -20,9 +21,12 @@ server.use(cookieParser());
 // 静的ファイルの提供設定
 server.use('/assets', express.static(path.join(__dirname, 'assets')));
 
+// CORS ミドルウェアを追加
+server.use(cors());
+
 // routing
 server.use('/', indexRouter);
-server.use('/users', userRouter);
+server.use('/', userRouter);
 
 // catch 404 and forward to error handler
 server.use((req: Request, res: Response, next: NextFunction) => {
